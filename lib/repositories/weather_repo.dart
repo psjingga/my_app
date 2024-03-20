@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:math';
 
 enum Weather {
-  cloudy('assets/images/cloudy.png'),
-  sunny('assets/images/sunny.png'),
-  rain('assets/images/rain.png');
+  cloudy('assets/images/cloudy.png', 25),
+  sunny('assets/images/sunny.png', 32),
+  rain('assets/images/rain.png', 20);
 
   final String path;
-
-  const Weather(this.path);
+  final int derajat;
+  const Weather(this.path, this.derajat);
 }
 
 class WeatherRepository {

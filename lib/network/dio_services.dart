@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:my_app_new/network/url_services.dart';
 
@@ -24,7 +22,9 @@ class dioService {
     bool connect = await InternetConnectionChecker().hasConnection;
     if (connect == true) {
       try {
-        _client.interceptors.add(LogInterceptor());
+        _client.interceptors.add(LogInterceptor(
+          requestBody: true,
+        ));
         final response = await _client.get(
           path,
           options: Options(
@@ -45,8 +45,8 @@ class dioService {
         if (e.type == DioExceptionType.badResponse) {
           print('Masuk bad response');
           return onError(e.type);
-        } else if (e.type == DioExceptionType.connectionTimeout) {
-          return 'Timeout sending API';
+        } else if (e.type == DioExceptionType.receiveTimeout) {
+          // return 'Timeout sending API';
           print('Timeout sending API');
         } else {
           print('selaiin bad response dan timeout, ${e.type.toString()}');
@@ -55,6 +55,7 @@ class dioService {
         print(e.toString());
       }
     } else {
+      // mengalihkan kedalam file koneksi cek.
       print('tidak ada koneksi internet');
     }
   }
@@ -80,7 +81,7 @@ class dioService {
         );
 
         return onSuccess(response.data);
-      } on DioError catch (e) {
+      } on DioException catch (e) {
         if (e.type == DioExceptionType.badResponse) {
           print('Masuk bad response');
 

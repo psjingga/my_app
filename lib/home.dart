@@ -128,6 +128,19 @@ class _homePageState extends ConsumerState<homePage> {
                   ),
                 ),
               ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    context.goNamed('user');
+                  },
+                  child: Text(
+                    'User Provider',
+                  ),
+                ),
+              ],
             )
           ],
         ),

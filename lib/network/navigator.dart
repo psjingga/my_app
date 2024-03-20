@@ -7,6 +7,7 @@ import 'package:my_app_new/pages/future_provider.dart';
 import 'package:my_app_new/pages/stream_provider.dart';
 import 'package:my_app_new/profile.dart';
 import 'package:my_app_new/splashscreen.dart';
+import 'package:my_app_new/user.dart';
 
 abstract class PageName {
   static const splashRoute = '/';
@@ -16,6 +17,7 @@ abstract class PageName {
   static const homeNewRoute = '/homeNew';
   static const futureRoute = '/future';
   static const streamRoute = '/stream';
+  static const userRoute = '/user';
 }
 
 final router = GoRouter(
@@ -62,6 +64,11 @@ final router = GoRouter(
       path: PageName.streamRoute,
       name: 'stream',
       builder: (context, state) => StreamProviderView(),
+    ),
+    GoRoute(
+      path: PageName.userRoute,
+      name: 'user',
+      builder: (context, state) => UserView(),
     )
   ],
 );

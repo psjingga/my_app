@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_app_new/model/user_model.dart';
 
 import 'dio_services.dart';
 import 'url_services.dart';
@@ -83,5 +84,30 @@ class sendApi {
         "password": password,
       },
     );
+  }
+
+  getHttp() async {
+    dio.interceptors.add(LogInterceptor());
+    final response = await dio.post(
+      'https://dart.dev',
+      data: {
+        'username': 'panji',
+        'password': '123456',
+      },
+      options: Options(headers: {'Authorization': 'Bearer tokken'}),
+    );
+    print(response);
+  }
+
+  Future<List<UserModel>> getUsers() async {
+    Response response =
+        await dio.get('https://reqres.in/api/users?page=1&per_page=12');
+
+    if (response.statusCode == 200) {
+      final List result = response.data['data'];
+      return result.map((e) => UserModel.fromJson(e)).toList();
+    } else {
+      throw Exception(response.statusMessage);
+    }
   }
 }
