@@ -14,7 +14,6 @@ class dioService {
   );
 
   Future<Object?> get<T>({
-    required BuildContext context,
     required String path,
     required T Function(dynamic data) onSuccess,
     required T Function(dynamic error) onError,
@@ -35,7 +34,9 @@ class dioService {
         );
 
         response.statusCode;
-        if (response.statusCode == 201) {
+
+        // return onSuccess(response.data);
+        if (response.statusCode == 200) {
           return onSuccess(response.data);
         } else {
           return onError(response.data);
@@ -45,6 +46,7 @@ class dioService {
           print('Masuk bad response');
           return onError(e.type);
         } else if (e.type == DioExceptionType.connectionTimeout) {
+          return 'Timeout sending API';
           print('Timeout sending API');
         } else {
           print('selaiin bad response dan timeout, ${e.type.toString()}');
@@ -81,6 +83,7 @@ class dioService {
       } on DioError catch (e) {
         if (e.type == DioExceptionType.badResponse) {
           print('Masuk bad response');
+
           return onError(e.response?.data);
         } else if (e.type == DioExceptionType.connectionTimeout) {
           print('Timeout sending API');

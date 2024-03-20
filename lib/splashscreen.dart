@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_app_new/login.dart';
 
-class Splashscreen extends StatefulWidget {
+class Splashscreen extends ConsumerStatefulWidget {
   const Splashscreen({super.key});
 
   @override
-  State<Splashscreen> createState() => _SplashscreenState();
+  ConsumerState<Splashscreen> createState() => _SplashscreenState();
 }
 
-class _SplashscreenState extends State<Splashscreen> {
+class _SplashscreenState extends ConsumerState<Splashscreen> {
   @override
   void initState() {
     // TODO: implement initState

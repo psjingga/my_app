@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_app_new/profile.dart';
 import 'package:my_app_new/shared_widget/custom_dialog..dart';
 
-class homePage extends StatefulWidget {
+import 'provider/greeting.dart';
+
+class homePage extends ConsumerStatefulWidget {
   String? email;
   homePage({super.key, this.email});
 
   @override
-  State<homePage> createState() => _homePageState();
+  ConsumerState<homePage> createState() => _homePageState();
 }
 
-class _homePageState extends State<homePage> {
+class _homePageState extends ConsumerState<homePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +31,20 @@ class _homePageState extends State<homePage> {
             SizedBox(
               height: 20,
             ),
+            Consumer(
+              builder: (context, ref, child) {
+                final hello = ref.watch(helloProvider);
+                return Text(
+                  hello + ' ' + widget.email!,
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -39,7 +55,7 @@ class _homePageState extends State<homePage> {
                     context.goNamed(
                       'profile',
                       pathParameters: {
-                        'nama': name,
+                        'name': name,
                         'age': age,
                         'email': widget.email!,
                       },
@@ -50,6 +66,28 @@ class _homePageState extends State<homePage> {
                   ),
                 ),
                 ElevatedButton(
+                  onPressed: () {
+                    context.goNamed('homeNew');
+                  },
+                  child: Text(
+                    'Home New',
+                  ),
+                ),
+              ],
+            ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(
+                      250,
+                      40,
+                    ),
+                  ),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -67,9 +105,30 @@ class _homePageState extends State<homePage> {
                   child: Text(
                     'Logout',
                   ),
-                )
+                ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    context.goNamed('future');
+                  },
+                  child: Text(
+                    'Future Provider',
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    context.goNamed('stream');
+                  },
+                  child: Text(
+                    'Stream Provider',
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

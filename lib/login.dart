@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_app_new/network/navigator.dart';
 import 'package:my_app_new/network/send_api.dart';
 import 'package:my_app_new/shared_widget/custom_dialog..dart';
 
@@ -321,6 +322,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                       onPressed: () async {
+                        context.goNamed('homeNew');
                         print('tombol facebook');
                       },
                       child: Row(

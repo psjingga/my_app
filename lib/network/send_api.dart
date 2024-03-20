@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_app_new/home.dart';
 
 import 'dio_services.dart';
 import 'url_services.dart';
 
 var token = 'bearer klaskdlasd';
 
+final dio = Dio();
+
 class sendApi {
   getData(int page, BuildContext context) async {
     await dioService().get(
-      context: context,
-      path: UrlService.getUsers + '?page=$page',
-      // queryParameters: {
-      //   'page': 2,
-      // },
+      path: UrlService.getUsers,
+      queryParameters: {
+        'page': 2,
+      },
       onSuccess: (content) {
         print('sukses');
         print(content);
